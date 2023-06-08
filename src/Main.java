@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
         a c = new a();
-        c.menu(SeconderMenu);
+        c.menu(SeconderMenu.A);
     }
 
 }
