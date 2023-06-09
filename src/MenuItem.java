@@ -1,10 +1,9 @@
-package menu;
-
 public enum MenuItem implements MenuCallback {
     ADD(1, "Add"),
     Edit(2, "Edit"),
     SHOW(3, "Show"),
-    EXIT(4, "Exit");
+    SECOND_MENU(4, "Second Menu"),
+    EXIT(5, "Exit");
 
     private final int id;
     private final String title;
@@ -20,40 +19,25 @@ public enum MenuItem implements MenuCallback {
         return title;
     }
 
-    public void printItems() {
-        for (MenuItem item : values()) {
-            System.out.println(item);
-        }
-    }
-
-    public static MenuItem findById(int id) {
-        for (MenuItem item : values()) {
-            if (item.id == id) return item;
-        }
-        return null;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public static MenuItem getInstance() {
-        return MenuItem.ADD;
-    }
 
     @Override
     public void onMenuSelected(Enum anEnum, MenuController menuController) {
         if (anEnum != null) {
             switch ((MenuItem) anEnum) {
                 case ADD:
+                    System.out.println("Add");
                 case Edit:
+                    System.out.println("Edit");
                 case SHOW:
-                    System.out.println("Not implemented");
+                    System.out.println("Show");
+                    break;
+                case SECOND_MENU:
+                    EnumTools.makeMenu(SecondMenu.class);
                     break;
                 case EXIT:
                     return;
             }
         }
-        menuController.show(SeconderMenu.class);
+        menuController.show(SecondMenu.class);
     }
 }
