@@ -1,26 +1,25 @@
 package menu;
 
-import java.util.HashMap;
 import java.util.Scanner;
 
-public class MenuController {
+public class MenuController<T extends Enum> {
 
-    private Scanner scanner = new Scanner(System.in);
-    private MenuCallback menuCallback;
+    private final Scanner scanner = new Scanner(System.in);
+    private final MenuCallback menuCallback;
 
     private static final String SEPERATOR =
             "********************************************************\n" +
-            "\t\t\t\t\t %s\n" +
-            "********************************************************\n";
+                    "\t\t\t\t\t %s\n" +
+                    "********************************************************\n";
 
     public MenuController(MenuCallback menuCallback) {
         this.menuCallback = menuCallback;
     }
 
-    public void show() {
+    public void show(Class<T> enumClass) {
         // Print Menu Items
         System.out.printf(SEPERATOR, "Main Menu");
-        MenuItem.printItems();
+        Filler.getAllEnumToString(enumClass);
         // Ask for an ID
         System.out.println("-------------------------");
         System.out.print("Enter a menu id: ");
@@ -30,10 +29,10 @@ public class MenuController {
             // Convert input to an integer
             int id = Integer.parseInt(input);
             // Find equivalent menu item
-            MenuItem menuItem = MenuItem.findById(id);
+            T menuItem =(T) Filler.findById(id-1,enumClass);
             // Print Separator
             if (menuItem != null) {
-                System.out.printf(SEPERATOR, menuItem.title);
+                System.out.printf(SEPERATOR,menuItem);
             }
             // Invoke Callback
             menuCallback.onMenuSelected(menuItem, this);
@@ -42,7 +41,7 @@ public class MenuController {
             menuCallback.onMenuSelected(null, this);
         }
     }
-
-
-
 }
+
+
+

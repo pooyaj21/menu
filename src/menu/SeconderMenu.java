@@ -2,7 +2,7 @@ package menu;
 
 import java.util.HashMap;
 
-public enum SeconderMenu {
+public enum SeconderMenu{
     A(1, "A"),
     B(2, "B"),
     C(3, "C"),
@@ -19,16 +19,16 @@ public enum SeconderMenu {
 
     @Override
     public String toString() {
-        return id + "." + title;
+        return title;
     }
 
-    public static void printItems() {
+    public void printItems() {
         for (SeconderMenu item : values()) {
             System.out.println(item);
         }
     }
 
-    public static SeconderMenu findById(int id) {
+    public  SeconderMenu findById(int id) {
         for (SeconderMenu item : values()) {
             if (item.id == id) return item;
         }

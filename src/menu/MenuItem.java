@@ -1,13 +1,15 @@
 package menu;
 
-public enum MenuItem {
+public enum MenuItem{
     ADD(1, "Add"),
     Edit(2, "Edit"),
     SHOW(3, "Show"),
     EXIT(4, "Exit");
 
     private final int id;
-    final String title;
+    private final String title;
+
+
 
     MenuItem(int id, String title) {
         this.id = id;
@@ -18,8 +20,7 @@ public enum MenuItem {
     public String toString() {
         return id + "." + title;
     }
-
-    public static void printItems() {
+    public void printItems() {
         for (MenuItem item : values()) {
             System.out.println(item);
         }
@@ -30,5 +31,9 @@ public enum MenuItem {
             if (item.id == id) return item;
         }
         return null;
+    }
+
+    public String getTitle() {
+        return title;
     }
 }
