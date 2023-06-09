@@ -1,6 +1,6 @@
 package menu;
 
-public enum MenuItem{
+public enum MenuItem implements MenuCallback {
     ADD(1, "Add"),
     Edit(2, "Edit"),
     SHOW(3, "Show"),
@@ -10,7 +10,6 @@ public enum MenuItem{
     private final String title;
 
 
-
     MenuItem(int id, String title) {
         this.id = id;
         this.title = title;
@@ -18,8 +17,9 @@ public enum MenuItem{
 
     @Override
     public String toString() {
-        return id + "." + title;
+        return title;
     }
+
     public void printItems() {
         for (MenuItem item : values()) {
             System.out.println(item);
@@ -35,5 +35,25 @@ public enum MenuItem{
 
     public String getTitle() {
         return title;
+    }
+
+    public static MenuItem getInstance() {
+        return MenuItem.ADD;
+    }
+
+    @Override
+    public void onMenuSelected(Enum anEnum, MenuController menuController) {
+        if (anEnum != null) {
+            switch ((MenuItem) anEnum) {
+                case ADD:
+                case Edit:
+                case SHOW:
+                    System.out.println("Not implemented");
+                    break;
+                case EXIT:
+                    return;
+            }
+        }
+        menuController.show(SeconderMenu.class);
     }
 }

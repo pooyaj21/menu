@@ -8,6 +8,7 @@ public class Filler{
         int counter=1;
         for (T value : enumValues) {
             builder.append(counter).append(". ").append(value.toString()).append("\n");
+            counter++;
         }
         System.out.println(builder);
     }
@@ -20,6 +21,18 @@ public class Filler{
             if (value.ordinal()==id) return value;
         }
         return null;
+    }
+
+    public static <T extends Enum> void makeMenu(Class<T> enumClass){
+        MenuController<T> controller = new MenuController<>(
+                new MenuCallback<T>() {
+                    @Override
+                    public void onMenuSelected(T t, MenuController menuController) {
+                        if ( t instanceof MenuCallback) ((MenuCallback<T>) t).onMenuSelected(t,menuController);
+                    }
+                }
+        );
+        controller.show(enumClass);
     }
 
 }

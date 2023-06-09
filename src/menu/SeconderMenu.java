@@ -1,8 +1,9 @@
 package menu;
 
 import java.util.HashMap;
+import java.util.SortedMap;
 
-public enum SeconderMenu{
+public enum SeconderMenu implements MenuCallback{
     A(1, "A"),
     B(2, "B"),
     C(3, "C"),
@@ -33,5 +34,22 @@ public enum SeconderMenu{
             if (item.id == id) return item;
         }
         return null;
+    }
+
+    @Override
+    public void onMenuSelected(Enum anEnum, MenuController menuController) {
+        if (anEnum != null) {
+            switch ((SeconderMenu)anEnum) {
+                case A:
+                    Filler.makeMenu(MenuItem.class);
+                case B:
+                case C:
+                    System.out.println("Not implemented");
+                    break;
+                case EXIT:
+                    return;
+            }
+        }
+        menuController.show(SeconderMenu.class);
     }
 }
