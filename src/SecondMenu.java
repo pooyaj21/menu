@@ -40,6 +40,7 @@ public enum SecondMenu implements MenuCallback{
                     System.out.println("E");
                     break;
                 case MAIN_ITEM:
+                    System.out.println("switching menu");
                     EnumTools.makeMenu(MenuItem.class);
                     break;
                 case EXIT:

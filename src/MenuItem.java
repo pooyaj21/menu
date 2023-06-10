@@ -26,18 +26,21 @@ public enum MenuItem implements MenuCallback {
             switch ((MenuItem) anEnum) {
                 case ADD:
                     System.out.println("Add");
+                    break;
                 case Edit:
                     System.out.println("Edit");
+                    break;
                 case SHOW:
                     System.out.println("Show");
                     break;
                 case SECOND_MENU:
+                    System.out.println("switching menu");
                     EnumTools.makeMenu(SecondMenu.class);
                     break;
                 case EXIT:
                     return;
             }
         }
-        menuController.show(SecondMenu.class);
+        menuController.show(MenuItem.class);
     }
 }
