@@ -14,10 +14,10 @@ public class MenuController<T extends Enum> {
         this.menuCallback = menuCallback;
     }
 
-    public void show(Class<T> enumClass) {
+    public void show(Enum anEnum) {
         // Print Menu Items
-        System.out.printf(SEPERATOR, enumClass.getCanonicalName());
-        EnumTools.getAllEnumToString(enumClass);
+        System.out.printf(SEPERATOR, anEnum.getClass().getName());
+        if (anEnum instanceof MenuCallback)((MenuCallback<?>) anEnum).printItems();
         // Ask for an ID
         System.out.println("-------------------------");
         System.out.print("Enter a menu id: ");
@@ -27,7 +27,10 @@ public class MenuController<T extends Enum> {
             // Convert input to an integer
             int id = Integer.parseInt(input);
             // Find equivalent menu item
-            T menuItem =(T) EnumTools.findById(id-1,enumClass);
+            T menuItem =null;
+            if (anEnum instanceof MenuCallback){
+              menuItem= (T) ((MenuCallback) anEnum).findById(id);
+            }
             // Print Separator
             if (menuItem != null) {
                 System.out.printf(SEPERATOR,menuItem);

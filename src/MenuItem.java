@@ -8,6 +8,9 @@ public enum MenuItem implements MenuCallback {
     private final int id;
     private final String title;
 
+    public static MenuItem getInstanceOf(){
+        return MenuItem.SHOW;
+    }
 
     MenuItem(int id, String title) {
         this.id = id;
@@ -19,6 +22,20 @@ public enum MenuItem implements MenuCallback {
         return title;
     }
 
+    @Override
+    public void printItems() {
+        for (MenuItem item : values()) {
+            System.out.println(item.id + ". " + item);
+        }
+    }
+
+    @Override
+    public MenuItem findById(int id) {
+        for (MenuItem item : values()) {
+            if (item.id == id) return item;
+        }
+        return null;
+    }
 
     @Override
     public void onMenuSelected(Enum anEnum, MenuController menuController) {
@@ -35,12 +52,12 @@ public enum MenuItem implements MenuCallback {
                     break;
                 case SECOND_MENU:
                     System.out.println("switching menu");
-                    EnumTools.makeMenu(SecondMenu.class);
+                    EnumTools.makeMenu(SecondMenu.getInstanceOf());
                     break;
                 case EXIT:
                     return;
             }
         }
-        menuController.show(MenuItem.class);
+        menuController.show(anEnum);
     }
 }

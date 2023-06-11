@@ -1,34 +1,26 @@
 public class EnumTools {
 
-    public static <T extends Enum<T>> void getAllEnumToString(Class<T> enumClass) {
-        StringBuilder builder = new StringBuilder();
-        T[] enumValues = enumClass.getEnumConstants();
-        int counter = 1;
-        for (T value : enumValues) {
-            builder.append(counter).append(". ").append(value.toString()).append("\n");
-            counter++;
-        }
-        System.out.println(builder);
-    }
-
-    public static <T extends Enum<T>> T findById(int id, Class<T> enumClass) {
-        T[] enumValues = enumClass.getEnumConstants();
-        for (T value : enumValues) {
-            if (value.ordinal() == id) return value;
-        }
-        return null;
-    }
-
-    public static <T extends Enum> void makeMenu(Class<T> enumClass) {
+    public static <T extends Enum> void makeMenu(Enum anEnum) {
         MenuController<T> controller = new MenuController<>(
                 new MenuCallback<T>() {
                     @Override
                     public void onMenuSelected(T t, MenuController menuController) {
-                        if (t instanceof MenuCallback) ((MenuCallback<T>) t).onMenuSelected(t, menuController);
+                        if (t instanceof MenuCallback) ((MenuCallback) t).onMenuSelected(t, menuController);
+                    }
+
+                    @Override
+                    public void printItems() {
+                        if (anEnum instanceof MenuCallback) ((MenuCallback) anEnum).printItems();
+                    }
+
+                    @Override
+                    public T findById(int id) {
+                        if(anEnum instanceof MenuCallback)return (T) ((MenuCallback<?>) anEnum).findById(id);
+                        else return null;
                     }
                 }
         );
-        controller.show(enumClass);
+        controller.show(anEnum);
     }
 
 }

@@ -1,4 +1,4 @@
-public enum SecondMenu implements MenuCallback{
+public enum SecondMenu implements MenuCallback {
     A(1, "A"),
     B(2, "B"),
     C(3, "C"),
@@ -7,12 +7,16 @@ public enum SecondMenu implements MenuCallback{
     MAIN_ITEM(6, "Main Item"),
     EXIT(7, "Exit");
 
-    private final int id;
     final String title;
+    private final int id;
 
     SecondMenu(int id, String title) {
         this.id = id;
         this.title = title;
+    }
+
+    public static SecondMenu getInstanceOf() {
+        return SecondMenu.A;
     }
 
     @Override
@@ -23,7 +27,7 @@ public enum SecondMenu implements MenuCallback{
     @Override
     public void onMenuSelected(Enum anEnum, MenuController menuController) {
         if (anEnum != null) {
-            switch ((SecondMenu)anEnum) {
+            switch ((SecondMenu) anEnum) {
                 case A:
                     System.out.println("A");
                     break;
@@ -41,12 +45,27 @@ public enum SecondMenu implements MenuCallback{
                     break;
                 case MAIN_ITEM:
                     System.out.println("switching menu");
-                    EnumTools.makeMenu(MenuItem.class);
+                    EnumTools.makeMenu(MenuItem.getInstanceOf());
                     break;
                 case EXIT:
                     return;
             }
         }
-        menuController.show(SecondMenu.class);
+        menuController.show(anEnum);
+    }
+
+    @Override
+    public void printItems() {
+        for (SecondMenu item : values()) {
+            System.out.println(item.id + ". " + item);
+        }
+    }
+
+    @Override
+    public SecondMenu findById(int id) {
+        for (SecondMenu item : values()) {
+            if (item.id == id) return item;
+        }
+        return null;
     }
 }
