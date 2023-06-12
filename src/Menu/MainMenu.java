@@ -1,10 +1,15 @@
-import Menu.*;
+package Menu;
 
 import java.util.ArrayList;
 
-public class Main {
+public class MainMenu implements MenuItem{
+    @Override
+    public String getName() {
+        return "Main Menu";
+    }
 
-    public static void main(String[] args) {
+    @Override
+    public void performAction() {
         ArrayList<MenuItem> mainMenu = new ArrayList<>();
         mainMenu.add(new Add());
         mainMenu.add(new Show());
